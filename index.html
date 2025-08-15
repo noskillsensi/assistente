@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Noskill Sensi - Assistente Virtual</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <!-- CÓDIGO DO PIXEL UTMIFY -->
+    <script>
+      window.pixelId = "687c11e3a04e4348ef2a8d8d";
+      var a = document.createElement("script");
+      a.setAttribute("async", "");
+      a.setAttribute("defer", "");
+      a.setAttribute("src", "https://cdn.utmify.com.br/scripts/pixel/pixel.js");
+      document.head.appendChild(a);
+    </script>
+    
+    <!-- SCRIPT UTM UTMIFY (DEIXAMOS ELE AQUI, MAS NOSSO CÓDIGO VAI SOBREPOR A LÓGICA DE REDIRECIONAMENTO) -->
+    <script
+      src="https://cdn.utmify.com.br/scripts/utms/latest.js"
+      async
+      defer
+    ></script>
+    
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #000;
+        }
+
+        #chat-container::-webkit-scrollbar { display: none; }
+        .chat-bubble {
+            opacity: 0;
+            transform: translateY(20px);
+            animation: pop-in 0.5s ease-out forwards;
+        }
+
+        @keyframes pop-in {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .typing-indicator span {
+            animation: blink 1.4s infinite both;
+        }
+        .typing-indicator span:nth-child(2) { animation-delay: 0.2s; }
+        .typing-indicator span:nth-child(3) { animation-delay: 0.4s; }
+
+        @keyframes blink {
+            0% { opacity: 0.2; }
+            20% { opacity: 1; }
+            100% { opacity: 0.2; }
+        }
+    </style>
+</head>
+<body class="flex items-center justify-center min-h-screen">
+
+    <div class="w-full h-screen bg-black flex flex-col">
+        <!-- Cabeçalho do Chat -->
+        <header class="bg-black p-4 flex items-center gap-4 border-b border-gray-800 flex-shrink-0">
+            <i class="fa-solid fa-arrow-left text-white text-xl"></i>
+            <img src="https://i.imgur.com/bc3uR8j.jpg" alt="Logo Noskill" class="w-10 h-10 rounded-full object-cover">
+            <div>
+                <h1 class="font-semibold text-white flex items-center gap-2">noskill.sensi <i class="fa-solid fa-check-circle text-blue-500 text-xs"></i></h1>
+                <p class="text-xs text-gray-400">Online</p>
+            </div>
+            <div class="ml-auto flex items-center gap-5 text-white text-2xl">
+                <i class="fa-solid fa-phone"></i>
+                <i class="fa-solid fa-video"></i>
+            </div>
+        </header>
+
+        <!-- Mensagens do Chat -->
+        <div id="chat-container" class="flex-1 p-4 overflow-y-auto space-y-2 flex flex-col">
+            <!-- Info do Perfil -->
+            <div class="text-center my-4 flex-shrink-0">
+                <div class="relative w-24 h-24 mx-auto mb-2 p-1 rounded-full bg-gradient-to-r from-yellow-400 via-red-500 to-purple-500">
+                    <div class="bg-black p-1 rounded-full">
+                         <img src="https://i.imgur.com/bc3uR8j.jpg" alt="Logo Noskill" class="w-full h-full rounded-full object-cover">
+                    </div>
+                </div>
+                <h2 class="font-semibold text-white text-lg">noskill.sensi</h2>
+                <p class="text-sm text-gray-400">Ferramenta para Gamers</p>
+                <p class="text-xs text-gray-500">47 mil seguidores • 6 publicações</p>
+                <button class="mt-2 bg-gray-800 text-white text-sm font-semibold px-4 py-1.5 rounded-lg">Ver perfil</button>
+            </div>
+        </div>
+
+        <!-- Área de Opções do Utilizador -->
+        <div id="options-container" class="p-4 border-t border-gray-800">
+            <!-- Os botões de opção aparecerão aqui -->
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const chatContainer = document.getElementById('chat-container');
+            const optionsContainer = document.getElementById('options-container');
+            let currentStep = 0;
+
+            const chatFlow = [
+                { type: 'bot', message: "Opa! Cansado de pinar tiro e ver os outros dar só capa?", delay: 1500, next: 1 },
+                { type: 'bot', message: "Relaxa, a gente vai resolver isso. Primeiro, me fala aí, você joga em:", delay: 2000, options: [{ text: "Android", next: 2 }, { text: "iPhone", next: 2 }] },
+                { type: 'bot', message: "Show! Se liga como o <strong>Aplicativo da Noskill</strong> funciona no seu celular. É assim que a sua mira vai ficar:", delay: 2500, next: 3 },
+                { 
+                    type: 'bot', 
+                    message: `<div class="aspect-video rounded-lg overflow-hidden"><iframe class="w-full h-full" src="https://www.youtube.com/embed/Hvy9NoC7hIM?autoplay=1&loop=1&playlist=Hvy9NoC7hIM&controls=0&showinfo=0&rel=0&modestbranding=1" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>`, 
+                    delay: 3000, 
+                    next: 4 
+                },
+                { type: 'bot', message: "E o mais importante: isso <strong>NÃO é hack</strong>. É um <strong>auxiliador de mira</strong> 100% seguro e anti-ban. A sua conta fica protegida.", delay: 4000, options: [{ text: "Gostei! Como eu testo?", next: 5 }] },
+                { type: 'bot', message: "Criei uma simulação interativa do nosso painel para você mesmo mexer nas funções e sentir o poder. Clica aí para testar.", delay: 3500, options: [{ text: "TESTAR O PAINEL AGORA", action: 'redirect' }] }
+            ];
+
+            function showTypingIndicator() {
+                const typingBubble = document.createElement('div');
+                typingBubble.className = 'chat-bubble flex items-end self-start space-x-2';
+                typingBubble.innerHTML = `
+                    <img src="https://i.imgur.com/bc3uR8j.jpg" class="w-8 h-8 rounded-full flex-shrink-0 object-cover">
+                    <div class="bg-[#262626] p-3 rounded-2xl typing-indicator">
+                        <span class="w-2 h-2 bg-gray-500 rounded-full inline-block"></span>
+                        <span class="w-2 h-2 bg-gray-500 rounded-full inline-block"></span>
+                        <span class="w-2 h-2 bg-gray-500 rounded-full inline-block"></span>
+                    </div>`;
+                chatContainer.appendChild(typingBubble);
+                chatContainer.scrollTop = chatContainer.scrollHeight;
+                return typingBubble;
+            }
+
+            function addBotMessage(message, isVideo = false) {
+                const botBubble = document.createElement('div');
+                botBubble.className = 'chat-bubble flex items-end self-start space-x-2';
+                const messageWidth = isVideo ? 'w-full max-w-full' : 'max-w-xs';
+                botBubble.innerHTML = `
+                    <img src="https://i.imgur.com/bc3uR8j.jpg" class="w-8 h-8 rounded-full flex-shrink-0 object-cover">
+                    <div class="bg-[#262626] p-3 rounded-2xl ${messageWidth}">
+                        <div class="text-sm text-white">${message}</div>
+                    </div>`;
+                chatContainer.appendChild(botBubble);
+            }
+
+            function addUserMessage(message) {
+                const userBubble = document.createElement('div');
+                userBubble.className = 'chat-bubble self-end';
+                userBubble.innerHTML = `
+                    <div class="bg-[#3797F0] p-3 rounded-2xl max-w-xs">
+                        <p class="text-sm text-white">${message}</p>
+                    </div>`;
+                chatContainer.appendChild(userBubble);
+            }
+
+            function showOptions(options) {
+                optionsContainer.innerHTML = '';
+                const buttonContainer = document.createElement('div');
+                buttonContainer.className = 'flex flex-col items-center justify-center gap-2';
+                
+                options.forEach(option => {
+                    const button = document.createElement('button');
+                    button.className = 'w-full text-center border border-[#3797F0] text-[#3797F0] font-semibold p-2 rounded-full text-sm hover:bg-[#3797F0] hover:text-white transition-colors';
+                    button.textContent = option.text;
+                    button.onclick = () => handleOptionClick(option);
+                    buttonContainer.appendChild(button);
+                });
+                optionsContainer.appendChild(buttonContainer);
+            }
+
+            // ===================================================================
+            //          FUNÇÃO DE REDIRECIONAMENTO CORRIGIDA (V2)
+            // ===================================================================
+            function handleOptionClick(option) {
+                addUserMessage(option.text);
+                optionsContainer.innerHTML = '';
+                
+                if (option.action === 'redirect') {
+                    const salesPageUrl = 'https://noskillsensi.github.io/';
+                    
+                    // Pega todos os parâmetros da URL ATUAL (que estão corretos)
+                    const currentUrlParams = window.location.search;
+                    
+                    // Redireciona para a nova página, repassando os parâmetros intactos
+                    // Isso ignora a lógica automática e defeituosa do script da UTMIFY.
+                    window.open(salesPageUrl + currentUrlParams, '_self');
+                }
+                
+                if (option.next !== undefined) {
+                    currentStep = option.next;
+                    runChatStep();
+                }
+            }
+
+            function runChatStep() {
+                if (currentStep >= chatFlow.length) return;
+
+                const step = chatFlow[currentStep];
+                const typingIndicator = showTypingIndicator();
+
+                setTimeout(() => {
+                    chatContainer.removeChild(typingIndicator);
+                    const isVideo = step.message.includes('iframe');
+                    addBotMessage(step.message, isVideo);
+                    chatContainer.scrollTop = chatContainer.scrollHeight;
+
+                    if (step.options) {
+                        setTimeout(() => showOptions(step.options), 500);
+                    } else {
+                        currentStep = step.next;
+                        if (currentStep < chatFlow.length) {
+                            runChatStep();
+                        }
+                    }
+                }, step.delay);
+            }
+
+            runChatStep();
+        });
+    </script>
+</body>
+</html>

@@ -7,7 +7,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     
-    <!-- CÓDIGO DO PIXEL UTMIFY (INSERIDO DIRETAMENTE) -->
+    <!-- CÓDIGO DO PIXEL UTMIFY -->
     <script>
       window.pixelId = "687c11e3a04e4348ef2a8d8d";
       var a = document.createElement("script");
@@ -17,11 +17,13 @@
       document.head.appendChild(a);
     </script>
     
-    <!-- CÓDIGO UTM UTMIFY (INSERIDO DIRETAMENTE) -->
+    <!-- =================================================================== -->
+    <!--          CÓDIGO UTM UTMIFY (CORRIGIDO)                              -->
+    <!--  Atributos 'data-utmify-prevent-*' foram removidos para evitar      -->
+    <!--  a corrupção de parâmetros na URL de destino.                       -->
+    <!-- =================================================================== -->
     <script
       src="https://cdn.utmify.com.br/scripts/utms/latest.js"
-      data-utmify-prevent-xcod-sck
-      data-utmify-prevent-subids
       async
       defer
     ></script>
@@ -177,8 +179,9 @@
                 optionsContainer.innerHTML = '';
                 
                 if (option.action === 'redirect') {
+                    // Link para a página de vendas principal
                     const salesPageUrl = 'https://noskillsensi.github.io/'; 
-                    window.open(salesPageUrl, '_blank');
+                    window.open(salesPageUrl, '_self'); // Usar '_self' para garantir a passagem correta dos parâmetros
                 }
                 
                 if (option.next !== undefined) {
